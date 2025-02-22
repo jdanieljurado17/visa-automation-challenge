@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class CreatePetTests {
+public class PetEndpointTests {
 
     /**
      * Sends a request to create a pet using the provided payload.
@@ -52,5 +52,20 @@ public class CreatePetTests {
     public static void createPetAndSetGlobalVariables() throws JsonProcessingException {
         JsonNode response = sendPetCreationRequest(Serenity.sessionVariableCalled("petJson"));
         Serenity.setSessionVariable("createPetResponse").to(response);
+    }
+
+    /**
+     * Sends a GET request to retrieve pet details by ID.
+     *
+     * This method retrieves the expected pet data stored in Serenity session variables,
+     * extracts the pet ID, and calls the `getPetByIDRequest` method to fetch the pet details.
+     * The response is then stored in the Serenity session for further validation.
+     *
+     * @throws JsonProcessingException if an error occurs while processing the JSON response.
+     */
+    public static void getPetByIdRequest() throws JsonProcessingException {
+        Map<String, String> expectedData = Serenity.sessionVariableCalled("expectedData");
+        JsonNode response = PetRequests.getPetByIDRequest(expectedData.get("id"));
+        Serenity.setSessionVariable("getByIdResponse").to(response);
     }
 }
