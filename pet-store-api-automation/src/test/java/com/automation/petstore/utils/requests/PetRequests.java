@@ -43,4 +43,24 @@ public class PetRequests {
         return objectMapper.readTree(response.asString());
     }
 
+
+    public static JsonNode getPetByIDRequest(String petId) throws JsonProcessingException {
+        ServiceProperty serviceProperty = ServiceProperty.getServiceProperties();
+        String baseUrl = serviceProperty.getBaseUrl();
+        String petPath = serviceProperty.getPetPath();
+        String apiKey = serviceProperty.getApiKey();
+
+        RestAssured.baseURI = baseUrl;
+
+        Response response = RestAssured.given()
+                .header("api_key", apiKey)
+                .contentType(ContentType.JSON)
+                .get(petPath +"/" + petId );
+
+        response.then().assertThat().statusCode(200);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(response.asString());
+    }
+
 }
