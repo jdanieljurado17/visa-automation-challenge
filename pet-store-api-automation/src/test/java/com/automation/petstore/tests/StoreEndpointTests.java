@@ -6,6 +6,7 @@ import com.automation.petstore.utils.requests.StoreRequests;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import net.serenitybdd.core.Serenity;
+import org.openqa.selenium.json.Json;
 
 
 public class StoreEndpointTests {
@@ -31,6 +32,17 @@ public class StoreEndpointTests {
      */
     public static void createOrderRequest() throws JsonProcessingException {
         JsonNode response = StoreRequests.postOrderRequest(Serenity.sessionVariableCalled("orderJson"));
+        Serenity.setSessionVariable("storeEndpointResponse").to(response);
+    }
+
+    /**
+     * Sends a request to retrieve an order by pet ID and stores the response in a Serenity session variable.
+     *
+     * @throws JsonProcessingException if there is an error parsing the response to JSON.
+     */
+    public static void getOrderRequest() throws JsonProcessingException {
+
+        JsonNode response = StoreRequests.getOrderByIDRequest(String.valueOf(TestContext.get("petId")));
         Serenity.setSessionVariable("storeEndpointResponse").to(response);
     }
 

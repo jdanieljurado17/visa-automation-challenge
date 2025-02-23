@@ -13,6 +13,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StoreRequestsAssertions {
+
     /**
      * Validates the dynamic response from the store endpoint against expected data.
      *
