@@ -66,6 +66,16 @@ public class PetEndpointTests {
     public static void getPetByIdRequest() throws JsonProcessingException {
         Map<String, String> expectedData = Serenity.sessionVariableCalled("expectedData");
         JsonNode response = PetRequests.getPetByIDRequest(expectedData.get("id"));
-        Serenity.setSessionVariable("getByIdResponse").to(response);
+        Serenity.setSessionVariable("petEndpointResponse").to(response);
+    }
+
+    /**
+     * Sends a request to update an existing pet and stores the response in a Serenity session variable.
+     *
+     * @throws JsonProcessingException if there's an error processing the JSON response.
+     */
+    public static void updatePetRequest() throws JsonProcessingException {
+        JsonNode response = PetRequests.updatePetRequest(Serenity.sessionVariableCalled("petJson"));
+        Serenity.setSessionVariable("petEndpointResponse").to(response);
     }
 }

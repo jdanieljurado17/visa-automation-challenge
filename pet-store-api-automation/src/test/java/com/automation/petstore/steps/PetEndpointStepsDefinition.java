@@ -31,7 +31,13 @@ public class PetEndpointStepsDefinition {
 
     @Then("the response should contain the pet data matching the created pet")
     public void  retrievedPetDataValidation(){
-        PetRequestsAssertions.validatePetEndpointDynamicResponse("expectedData", "getByIdResponse");
+        PetRequestsAssertions.validatePetEndpointDynamicResponse("expectedData", "petEndpointResponse");
+    }
+
+    @And("the user sends a PUT request to update the pet with the following data:")
+    public void userUpdatesThePet(DataTable petData) throws JsonProcessingException {
+        PetEndpointTests.organizeExpectedPetData(petData);
+        PetEndpointTests.updatePetRequest();
     }
 
 }
