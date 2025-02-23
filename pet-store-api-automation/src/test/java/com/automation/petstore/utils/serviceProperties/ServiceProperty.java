@@ -37,4 +37,8 @@ public class ServiceProperty {
         return properties.getProperty("api.key");
     }
 
+    public String getStoreOrderPath(){
+        return properties.getProperty("store.order.path");
+    }
+
 }
