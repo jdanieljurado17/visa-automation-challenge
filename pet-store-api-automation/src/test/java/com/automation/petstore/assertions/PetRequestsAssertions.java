@@ -1,6 +1,6 @@
 package com.automation.petstore.assertions;
 
-import com.automation.petstore.utils.requests.ResponseFormatter;
+import com.automation.petstore.utils.dataFormatters.ResponseFormatter;
 import net.serenitybdd.core.Serenity;
 import static org.assertj.core.api.Assertions.*;
 

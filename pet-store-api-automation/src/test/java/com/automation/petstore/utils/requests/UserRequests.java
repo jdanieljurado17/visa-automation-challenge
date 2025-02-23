@@ -61,4 +61,30 @@ public class UserRequests {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(response.asString());
     }
+
+    /**
+     * Sends a PUT request to update an existing user in the system.
+     *
+     * @param username   The username of the user to be updated.
+     * @param petPayLoad The JSON payload containing the updated user details.
+     * @return A JsonNode representing the response body.
+     * @throws JsonProcessingException If there is an issue processing the JSON response.
+     */
+    public static JsonNode updateUserRequest(String username, String petPayLoad) throws JsonProcessingException {
+        ServiceProperty serviceProperty = ServiceProperty.getServiceProperties();
+        String baseUrl = serviceProperty.getBaseUrl();
+        String userPath = serviceProperty.getUserPath() + "/" + username;
+
+        RestAssured.baseURI = baseUrl;
+
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(petPayLoad)
+                .put(userPath);
+
+        response.then().assertThat().statusCode(200);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(response.asString());
+    }
 }
