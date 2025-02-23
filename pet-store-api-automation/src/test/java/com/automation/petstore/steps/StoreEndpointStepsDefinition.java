@@ -3,6 +3,7 @@ package com.automation.petstore.steps;
 import com.automation.petstore.assertions.StoreRequestsAssertions;
 import com.automation.petstore.tests.StoreEndpointTests;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,5 +23,10 @@ public class StoreEndpointStepsDefinition {
     @Then("the response body matches the order data")
     public void orderPlacementResponseValidation(){
         StoreRequestsAssertions.validateStoreEndpointDynamicResponse("orderJson", "storeEndpointResponse");
+    }
+
+    @And("the user sends a GET request to retrieve the order by ID")
+    public void userSendsGetOrderRequest() throws JsonProcessingException {
+        StoreEndpointTests.getOrderRequest();
     }
 }
