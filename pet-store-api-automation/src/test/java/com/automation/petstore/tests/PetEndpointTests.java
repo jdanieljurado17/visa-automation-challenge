@@ -78,4 +78,14 @@ public class PetEndpointTests {
         JsonNode response = PetRequests.updatePetRequest(Serenity.sessionVariableCalled("petJson"));
         Serenity.setSessionVariable("petEndpointResponse").to(response);
     }
+
+    /**
+     * Deletes a pet using the ID stored in the Serenity session.
+     * Stores the delete response in the Serenity session.
+     */
+    public static void deletePetRequest(){
+        Map<String, String> expectedData = Serenity.sessionVariableCalled("expectedData");
+        String response = PetRequests.deletePetByIDRequest(expectedData.get("id"));
+        Serenity.setSessionVariable("deletePetResponse").to(response);
+    }
 }

@@ -24,14 +24,19 @@ public class PetEndpointStepsDefinition {
         PetRequestsAssertions.validateCreatePetResponse();
     }
 
-    @And("the user sends a GET request to retrieve the pet by ID")
-    public void theUserRetrieveAPetByID() throws JsonProcessingException {
-        PetEndpointTests.getPetByIdRequest();
-    }
-
     @Then("the response should contain the pet data matching the created pet")
     public void  retrievedPetDataValidation(){
         PetRequestsAssertions.validatePetEndpointDynamicResponse("expectedData", "petEndpointResponse");
+    }
+
+    @Then("the response should contain the {string} message")
+    public void deleteResponseValidation(String deleteMessage){
+        PetRequestsAssertions.validateDeletePetResponse(deleteMessage);
+    }
+
+    @And("the user sends a GET request to retrieve the pet by ID")
+    public void theUserRetrieveAPetByID() throws JsonProcessingException {
+        PetEndpointTests.getPetByIdRequest();
     }
 
     @And("the user sends a PUT request to update the pet with the following data:")
@@ -39,5 +44,11 @@ public class PetEndpointStepsDefinition {
         PetEndpointTests.organizeExpectedPetData(petData);
         PetEndpointTests.updatePetRequest();
     }
+
+    @And("the user sends a DELETE request to delete the pet by ID")
+    public void userDeletesAPet(){
+        PetEndpointTests.deletePetRequest();
+    }
+
 
 }

@@ -59,4 +59,18 @@ public class PetRequestsAssertions {
                 .withFailMessage("Expected pet category to be %s but got %s", expectedData.get("tags"), responseData.get("tags"))
                 .isEqualTo(expectedData.get("tags"));
     }
+
+    /**
+     * Validates that the delete pet response matches the expected message.
+     *
+     * @param expectedMessage The expected response message.
+     * @throws AssertionError If the actual response does not match the expected message.
+     */
+    public static void validateDeletePetResponse(String expectedMessage){
+        String response = Serenity.sessionVariableCalled("deletePetResponse");
+
+        assertThat(response)
+                .withFailMessage("Expected response to be '%s' but got: '%s'", expectedMessage, response)
+                .isEqualTo(expectedMessage);
+    }
 }
