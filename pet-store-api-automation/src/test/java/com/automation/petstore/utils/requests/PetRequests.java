@@ -63,4 +63,31 @@ public class PetRequests {
         return objectMapper.readTree(response.asString());
     }
 
+    /**
+     * Sends a PUT request to update an existing pet in the Pet Store API.
+     *
+     * @param petPayLoad The JSON payload containing the pet's updated data.
+     * @return A JsonNode representing the API response.
+     * @throws JsonProcessingException if there's an error processing the JSON response.
+     */
+    public static JsonNode updatePetRequest(String petPayLoad) throws JsonProcessingException {
+        ServiceProperty serviceProperty = ServiceProperty.getServiceProperties();
+        String baseUrl = serviceProperty.getBaseUrl();
+        String petPath = serviceProperty.getPetPath();
+        String apiKey = serviceProperty.getApiKey();
+
+        RestAssured.baseURI = baseUrl;
+
+        Response response = RestAssured.given()
+                .header("api_key", apiKey)
+                .contentType(ContentType.JSON)
+                .body(petPayLoad)
+                .put(petPath);
+
+        response.then().assertThat().statusCode(200);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(response.asString());
+    }
+
 }
