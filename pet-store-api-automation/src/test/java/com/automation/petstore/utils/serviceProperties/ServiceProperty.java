@@ -41,4 +41,7 @@ public class ServiceProperty {
         return properties.getProperty("store.order.path");
     }
 
+    public String getUserLoginPath(){
+        return properties.getProperty("user.login.path");
+    }
 }
