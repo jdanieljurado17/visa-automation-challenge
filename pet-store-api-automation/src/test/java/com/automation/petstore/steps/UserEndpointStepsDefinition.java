@@ -7,21 +7,32 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.Serenity;
 
 public class UserEndpointStepsDefinition {
 
     @Given("the user has valid credentials:")
     public void userHasValidCredentials(DataTable credentials){
-        UserEndpointTests.organizeUserCredentials(credentials);
+        UserEndpointTests.organizeUserData(credentials);
     }
 
     @When("the user sends a GET request to the login endpoint")
-    public void userLogsIn() throws JsonProcessingException {
+    public void userLogsIn(){
         UserEndpointTests.getUserLogin();
     }
 
     @Then("the response should contain a {string} message followed by a session ID")
     public void loginMessageValidation(String message){
         UserRequestsAssertions.validateUserLoginResponse(message);
+    }
+
+    @When("the user sends a POST request to create the new user")
+    public void userRequestNewUserCreation() throws JsonProcessingException {
+        UserEndpointTests.createNewUser();
+    }
+
+    @Then("the response should contain the created user details")
+    public void validateUserCreatedResponse(){
+        UserRequestsAssertions.validateUserCreationResponse("userJson", "createUserResponse");
     }
 }
