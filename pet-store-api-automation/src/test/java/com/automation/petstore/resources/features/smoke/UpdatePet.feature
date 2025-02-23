@@ -1,6 +1,6 @@
-Feature: This feature smoke tests that the get pet by ID endpoint works appropriately.
+Feature: This feature smoke tests that the update pet endpoint works appropriately.
 
-  Scenario: Successfully create a pet and retrieve it by ID
+  Scenario: Successfully create and update a pet
     Given the user has a pet with the following data:
       | id  | name   | category  | tags       |
       |  3  | Peluso | Cats      | vaccinated |

@@ -9,6 +9,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 
+
 public class PetRequests {
 
 
@@ -43,7 +44,13 @@ public class PetRequests {
         return objectMapper.readTree(response.asString());
     }
 
-
+    /**
+     * Sends a GET request to retrieve pet details by ID.
+     *
+     * @param petId The ID of the pet to retrieve.
+     * @return A JsonNode containing the pet's details.
+     * @throws JsonProcessingException If an error occurs while processing the JSON response.
+     */
     public static JsonNode getPetByIDRequest(String petId) throws JsonProcessingException {
         ServiceProperty serviceProperty = ServiceProperty.getServiceProperties();
         String baseUrl = serviceProperty.getBaseUrl();
@@ -88,6 +95,32 @@ public class PetRequests {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(response.asString());
+    }
+
+    /**
+     * Sends a DELETE request to remove a pet by ID.
+     *
+     * @param petId The ID of the pet to delete.
+     * @return The response body as a String.
+     */
+    public static String deletePetByIDRequest(String petId) {
+        ServiceProperty serviceProperty = ServiceProperty.getServiceProperties();
+        String baseUrl = serviceProperty.getBaseUrl();
+        String petPath = serviceProperty.getPetPath();
+        String apiKey = serviceProperty.getApiKey();
+
+        RestAssured.baseURI = baseUrl;
+
+        Response response = RestAssured.given()
+                .header("api_key", apiKey)
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(petPath + "/" + petId);
+
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.asString());
+
+        return response.asString();
     }
 
 }
