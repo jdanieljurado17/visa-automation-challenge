@@ -7,7 +7,6 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.serenitybdd.core.Serenity;
 
 public class UserEndpointStepsDefinition {
 
@@ -31,8 +30,13 @@ public class UserEndpointStepsDefinition {
         UserEndpointTests.createNewUser();
     }
 
-    @Then("the response should contain the created user details")
+    @Then("the response should contain the user details")
     public void validateUserCreatedResponse(){
         UserRequestsAssertions.validateUserCreationResponse("userJson", "createUserResponse");
+    }
+
+    @When("the user sends a PUT request to update the created user")
+    public void userUpdatesCreatedUser() throws JsonProcessingException {
+        UserEndpointTests.updateUser();
     }
 }

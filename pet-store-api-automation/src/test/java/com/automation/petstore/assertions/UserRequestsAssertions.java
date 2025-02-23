@@ -1,7 +1,7 @@
 package com.automation.petstore.assertions;
 
 import com.automation.petstore.utils.dataFormatters.JsonUtils;
-import com.automation.petstore.utils.requests.ResponseFormatter;
+import com.automation.petstore.utils.dataFormatters.ResponseFormatter;
 import net.serenitybdd.core.Serenity;
 
 import java.util.Map;

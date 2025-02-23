@@ -43,6 +43,32 @@ public class UserEndpointTests {
      * @throws JsonProcessingException if an error occurs while constructing the JSON payload.
      */
     public static void createNewUser() throws JsonProcessingException {
+        String payload = setUserData();
+
+        JsonNode response = UserRequests.createNewUserRequest(payload);
+        Serenity.setSessionVariable("createUserResponse").to(response);
+    }
+
+    /**
+     * Updates the user using session-stored data.
+     *
+     * @throws JsonProcessingException If there is an issue processing the JSON response.
+     */
+    public static void updateUser() throws JsonProcessingException {
+        Map<String, String> userData = Serenity.sessionVariableCalled("userData");
+
+        String payload = setUserData();
+
+        JsonNode response = UserRequests.updateUserRequest(userData.get("username"), payload);
+        Serenity.setSessionVariable("createUserResponse").to(response);
+    }
+
+    /**
+     * Builds a user JSON payload using stored session data.
+     *
+     * @return A JSON string representing the user details.
+     */
+    public static String setUserData(){
         Map<String, String> userData = Serenity.sessionVariableCalled("userData");
 
         String payload = PayloadBuilder.buildUserJson(
@@ -54,10 +80,6 @@ public class UserEndpointTests {
                 userData.get("password"),
                 userData.get("phone"));
         Serenity.setSessionVariable("userJson").to(payload);
-
-        JsonNode response = UserRequests.createNewUserRequest(payload);
-        Serenity.setSessionVariable("createUserResponse").to(response);
+        return payload;
     }
-
-
 }

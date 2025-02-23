@@ -1,4 +1,4 @@
-package com.automation.petstore.utils.requests;
+package com.automation.petstore.utils.dataFormatters;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;

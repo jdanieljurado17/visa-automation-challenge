@@ -1,13 +1,12 @@
 package com.automation.petstore.assertions;
 
 import com.automation.petstore.utils.dataFormatters.JsonUtils;
-import com.automation.petstore.utils.requests.ResponseFormatter;
+import com.automation.petstore.utils.dataFormatters.ResponseFormatter;
 import net.serenitybdd.core.Serenity;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
