@@ -79,4 +79,36 @@ public class PayloadBuilder {
         }
     }
 
+    /**
+     * Builds a JSON payload for user creation.
+     *
+     * @param id        User ID as a string (converted to integer)
+     * @param username  User's unique username
+     * @param firstName User's first name
+     * @param lastName  User's last name
+     * @param email     User's email address
+     * @param password  User's password
+     * @param phone     User's phone number
+     * @return JSON string representing the user data
+     */
+    public static String buildUserJson(String id, String username, String firstName, String lastName, String email, String password, String phone) {
+        try {
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("id", Integer.parseInt(id));
+            userData.put("username", username);
+            userData.put("firstName", firstName);
+            userData.put("lastName", lastName);
+            userData.put("email", email);
+            userData.put("password", password);
+            userData.put("phone", phone);
+            userData.put("userStatus", 1); // Default status
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(userData);
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating JSON payload", e);
+        }
+    }
+
+
 }
