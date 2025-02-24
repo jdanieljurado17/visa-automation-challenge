@@ -1,5 +1,6 @@
 from locust import HttpUser, task, between
-from tests.pet_tests import PetLoadTest
+from tests.pet_tests import PetEndpointTests
+from tests.store_tests import StoreEndpointTests
 
 import config 
 
@@ -9,20 +10,32 @@ class PetStoreUser(HttpUser):
 
     def on_start(self):
         """Initialize tests with self.client"""
-        self.pet_load_tests = PetLoadTest(self.client)
+        self.pet_load_tests = PetEndpointTests(self.client)
+        self.store_tests = StoreEndpointTests(self.client)
     
-    @task(1)
+    @task(2)
     def create_pet(self):
         self.pet_load_tests.create_pet()
+
+    @task(2)
+    def create_order(self):
+        self.store_tests.create_order()
     
-    @task(3)  # Higher weight for more frequent execution
+    @task(5)  # Higher weight for more frequent execution
     def get_pets_by_status(self):
         self.pet_load_tests.get_pets_by_status()
   
-    @task(1)
+    @task(2)
     def get_pet_by_id(self):
-        self.pet_load_tests.get_pet_by_id()
-
+        self.pet_load_tests.get_pet_by_id()    
+    
+    @task(5)
+    def get_store_inventory(self):
+        self.store_tests.get_orders_inventory()
+    
+    @task(2)
+    def get_orders_by_id(self):
+        self.store_tests.get_order_by_id()
 
 if __name__ == "__main__":
     import os
