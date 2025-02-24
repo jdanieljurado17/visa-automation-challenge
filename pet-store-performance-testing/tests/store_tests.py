@@ -12,7 +12,7 @@ class StoreEndpointTests():
 
    
     def create_order(self):
-        order_id = random.randint(1000, 9999) # Ensure the ID matches what you query
+        order_id = random.randint(1000, 9999) 
         ship_date = (datetime.now(timezone.utc) + timedelta(hours=random.randint(1, 72))).isoformat()
         order_data = {
                 "id": order_id,
@@ -27,7 +27,7 @@ class StoreEndpointTests():
             self.order_ids.append(order_id)
             print(f"Created order with ID {order_id}")
         else:
-            print(f"Failed to create pet: {response.status_code}")
+            print(f"Failed to create order: {response.status_code}")
 
    
     def get_order_by_id(self):
