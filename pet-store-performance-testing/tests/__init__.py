@@ -1,1 +1,1 @@
-from config import HOST, HEADERS
+import config
