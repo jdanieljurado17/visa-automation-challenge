@@ -1,7 +1,9 @@
 import random
 
 
-class PetLoadTest():
+
+
+class PetEndpointTests():
     def __init__(self, client):
         self.client = client
         self.pet_ids = []
@@ -25,17 +27,17 @@ class PetLoadTest():
         if response.status_code == 200:
             self.pet_ids.append(pet_id)
             print(f"Created pet with ID {pet_id}")
-
+        else:
+            print(f"Failed to create pet: {response.status_code}")
 
    
     def get_pet_by_id(self):
         if not self.pet_ids:
-            print("No pet IDs available to fetch.")
             return
-        if self.pet_ids:
+        elif self.pet_ids:
             pet_id = random.choice(self.pet_ids)
             self.client.get(f"/pet/{pet_id}")
-        
+
 
 if __name__ == "__main__":
     import os
