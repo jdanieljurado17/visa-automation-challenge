@@ -88,4 +88,11 @@ public class PetEndpointTests {
         String response = PetRequests.deletePetByIDRequest(expectedData.get("id"));
         Serenity.setSessionVariable("deletePetResponse").to(response);
     }
+
+    public static void updatePetByForm() throws JsonProcessingException {
+        Map<String, String> expectedData = Serenity.sessionVariableCalled("expectedData");
+
+        JsonNode response = PetRequests.updatePetByFormRequest(expectedData.get("id"), expectedData.get("name"), expectedData.get("status"));
+        Serenity.setSessionVariable("petEndpointResponse").to(response);
+    }
 }

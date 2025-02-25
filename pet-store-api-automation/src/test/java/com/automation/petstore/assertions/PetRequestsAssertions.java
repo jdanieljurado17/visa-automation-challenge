@@ -1,9 +1,13 @@
 package com.automation.petstore.assertions;
 
+import com.automation.petstore.utils.dataFormatters.JsonUtils;
 import com.automation.petstore.utils.dataFormatters.ResponseFormatter;
 import net.serenitybdd.core.Serenity;
 import static org.assertj.core.api.Assertions.*;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +76,25 @@ public class PetRequestsAssertions {
         assertThat(response)
                 .withFailMessage("Expected response to be '%s' but got: '%s'", expectedMessage, response)
                 .isEqualTo(expectedMessage);
+    }
+
+
+    public static void validatePetUpdatedByForm(String expectedDataVariable, String responseDataVariable){
+        Map<String, Object> responseData = ResponseFormatter.parseResponseToMap(Serenity.sessionVariableCalled(responseDataVariable));
+        Map<String, Object> expectedData =  Serenity.sessionVariableCalled(expectedDataVariable);
+
+
+        assertThat(String.valueOf(responseData.get("id")))
+                .withFailMessage("Expected pet id to be %s but got %s", expectedData.get("id"), responseData.get("id"))
+                .isEqualTo(String.valueOf(expectedData.get("id")));
+
+        assertThat(String.valueOf(responseData.get("name")))
+                .withFailMessage("Expected pet name to be %s but got %s", expectedData.get("name"), responseData.get("name"))
+                .isEqualTo(String.valueOf(expectedData.get("name")));
+
+        assertThat(String.valueOf(responseData.get("status")))
+                .withFailMessage("Expected status to be %s but got %s", expectedData.get("status"), responseData.get("status"))
+                .isEqualTo(String.valueOf(expectedData.get("status")));
+
     }
 }

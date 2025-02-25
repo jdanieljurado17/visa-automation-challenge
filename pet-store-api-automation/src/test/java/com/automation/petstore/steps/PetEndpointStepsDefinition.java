@@ -34,6 +34,11 @@ public class PetEndpointStepsDefinition {
         PetRequestsAssertions.validateDeletePetResponse(deleteMessage);
     }
 
+    @Then("the response should contain the updated pet data")
+    public void validaFormUpdatedPet(){
+        PetRequestsAssertions.validatePetUpdatedByForm("expectedData", "petEndpointResponse");
+    }
+
     @And("the user sends a GET request to retrieve the pet by ID")
     public void theUserRetrieveAPetByID() throws JsonProcessingException {
         PetEndpointTests.getPetByIdRequest();
@@ -50,5 +55,10 @@ public class PetEndpointStepsDefinition {
         PetEndpointTests.deletePetRequest();
     }
 
+    @And("the user sends a POST request to update the pet with the form data endpoint:")
+    public void userUpdatesAPetByFormData(DataTable dataTable) throws JsonProcessingException {
+        PetEndpointTests.organizeExpectedPetData(dataTable);
+        PetEndpointTests.updatePetByForm();
+    }
 
 }
