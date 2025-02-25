@@ -14,7 +14,8 @@ These are the steps to set up the project on your local machine:
 1. Set up the Swagger Pet Store API project - for further instructions follow this link -> https://github.com/swagger-api/swagger-petstore
 2. Initialize the Swagger Pet Store API project on your local.  
 3. Clone and open this project in your local.
-4. Execute the TestRunner.java file.
+4. Execute the TestRunner.java file or on the terminal execute: mvn clean test -Dtest=TestRunner
+5. To open the allure reports execute on the terminal: mvn allure:serve
 ---
 
 ## API Automation Implementation
